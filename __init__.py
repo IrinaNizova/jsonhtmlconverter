@@ -7,7 +7,7 @@ def load_source_data(path):
 
 
 def insert_data_to_html(data, tags):
-    return "<{tag_title}>{title}</{tag_title}><{tag_body}>{body}</{tag_body}>".\
+    return "<li><{tag_title}>{title}</{tag_title}><{tag_body}>{body}</{tag_body}></li>".\
         format(title=data['title'], body=data['body'], tag_title=tags[0], tag_body=tags[1])
 
 
@@ -16,7 +16,8 @@ def convert_json_to_html(path='source.json', tags=('h3', 'div')):
     result = ""
     for notice in notices:
         result += insert_data_to_html(notice, tags)
-    return result
+    return "<ul>" + result + "</ul>"
+
 
 if __name__ == '__main__':
     convert_json_to_html()
