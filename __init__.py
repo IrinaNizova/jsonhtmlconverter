@@ -6,14 +6,33 @@ def load_source_data(path):
         return json.loads(f.read())
 
 
+def get_tag_open(string):
+    result = ''
+    tag_and_id = string.split('#')
+    if len(tag_and_id) > 1:
+        result += ' id="{}"'.format(tag_and_id[1])
+        string = tag_and_id[0]
+    classes = [s for s in string.split('.')[1:]]
+    if classes:
+        result = ' class="{}"'.format(" ".join(classes)) + result
+        string = string.split('.')[0]
+    return string + result
+
+
+def escape_html(content):
+    return content.replace('<', '&lt;').replace('>', '&gt;')
+
+
 def insert_data_to_html(data):
     result = ''
+
     for tag in data:
         if isinstance(data[tag], list):
             content = create_ul_list(data[tag])
         else:
             content = data[tag]
-        result += '<{tag}>{content}</{tag}>'.format(content=content, tag=tag)
+        result += '<{tag_open}>{content}</{tag}>'.format(content=escape_html(content),
+                                                         tag_open=get_tag_open(tag), tag=tag.split('.')[0])
     return result
 
 

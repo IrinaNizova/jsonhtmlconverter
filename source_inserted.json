@@ -1,10 +1,4 @@
-[
 {
-"h3": "Title #1",
-"div": "Hello, World 1!"
-},
-{
-"h3": "Title #2",
-"div": "Hello, World 2!"
+"p.my-class#my-id": "hello",
+"p.my-class1.my-class2":"example<a>asd</a>"
 }
-]
